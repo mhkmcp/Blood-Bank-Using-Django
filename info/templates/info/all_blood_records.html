@@ -3,16 +3,28 @@
 
 {% block body %}
 
-
     <div class="container-fluid">
+        <br>
+        <h4 class="text-center">Information of Blood Donors</h4>
+        <br>
         <div class="all-records text-center">
+            {% if all_blood_info %}
             <ul>
-                <li>Record 1</li>
-                <li>Record 2</li>
-                <li>Record 3</li>
-                <li>Record 4</li>
-                <li>Record 5</li>
+                {% for blood_info in all_blood_info %}
+
+                    <p>Blood Group: <strong>{{ blood_info.blood_group }}</strong></p>
+                    <h4>Donor Information</h4>
+                    <p>Name: <strong>{{ blood_info.first_name }} {{ blood_info.last_name }}</strong></p>
+                    <p><strong>Sex: {{ blood_info.sex }} </strong></p>
+                    <p><strong>Age: {{ blood_info.age }}</strong></p>
+                    <p>Location: {{ blood_info.location }}</p>
+                <hr>
+
+                {% endfor %}
             </ul>
+            {% else %}
+                <span  class="text-danger">No Blood Information Available!</span>
+            {% endif %}
         </div>
     </div>
 

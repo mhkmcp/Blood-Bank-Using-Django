@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+
+
+    <div class="add-donor container">
+        <br>
+        <h2 class="text-center">Please Register Here</h2>
+        <br>
+        <form method="POST" action="{% url 'info:blood-entry' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {% if form.errors %}
+                <ol>
+                {% for error in form.errors %}
+                    <li><strong>{{ error|escape }}</strong></li>
+                {% endfor %}
+                </ol>
+            {% endif %}
+
+            <input type="submit" class="btn btn-primary" value="Insert">
+        </form>
+
+        {% if has_profile %}
+        <p>You Successfully Signed In!</p>
+        {% endif %}
+    </div>
+
+{% endblock %}

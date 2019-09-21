@@ -1,26 +1,45 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
-class UserInfo(models.Model):
-    Male = 'M'
-    Female = 'F'
+class BloodInfo(models.Model):
+    Male = 'Male'
+    Female = 'Female'
     SEX_CHOICES = [
         (Male, 'Male'),
         (Female, 'Female'),
     ]
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
+    A_POSITIVE = 'A+'
+    A_NEGATIVE = 'A-'
+    B_POSITIVE = 'B+'
+    B_NEGATIVE = 'B-'
+    AB_POSITIVE = 'AB+'
+    AB_NEGATIVE = 'AB-'
+    O_POSITIVE = 'O+'
+    O_NEGATIVE = 'O-'
+
+    BLOOD_GROUP_CHOICES = [
+        (A_POSITIVE,'A+'),
+        (A_NEGATIVE, 'A-'),
+        (B_POSITIVE, 'B+'),
+        (B_NEGATIVE, 'B-'),
+        (AB_POSITIVE, 'AB+'),
+        (AB_NEGATIVE, 'AB-'),
+        (O_POSITIVE, 'O+'),
+        (O_NEGATIVE, 'O-'),
+    ]
+    first_name = models.CharField(max_length=50, blank=False)
+    last_name = models.CharField(max_length=50, blank=False)
+    age = models.IntegerField(blank=False, default=1)
+    blood_group = models.CharField(max_length=10,
+                                   choices=BLOOD_GROUP_CHOICES,
+                                   default='')
     sex = models.CharField(
-        max_length=2,
+        max_length=10,
         choices=SEX_CHOICES,
         default=Male,
     )
-    location = models.TextField()
+    location = models.CharField(max_length=150, blank=False)
 
     def __str__(self):
-        return self.first_name
-
-
-class BloodRecord(models.Model):
-    user = models.OneToOneField(UserInfo, on_delete=models.CASCADE)
-    blood_gorup = models.CharField(max_length=5)
+        return self.first_name + ' ' + self.blood_group
